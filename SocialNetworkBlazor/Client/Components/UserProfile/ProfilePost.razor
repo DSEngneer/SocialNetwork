@@ -1,0 +1,41 @@
+﻿<!-- begin timeline-time -->
+<div class="timeline-time">
+    <span class="date">@Post.PostedAt.ToString("dd MMMM yyyy")</span>
+    <span class="time">@Post.PostedAt.ToString("HH:mm")</span>
+</div>
+<!-- end timeline-time -->
+<!-- begin timeline-icon -->
+<div class="timeline-icon">
+    <a href="javascript:;">&nbsp;</a>
+</div>
+<!-- end timeline-icon -->
+<!-- begin timeline-body -->
+<div class="timeline-body">
+    <div class="timeline-header">
+        <span class="userimage"><img src="/storage/images/@Post.Author.ProfileImageTitle" alt=""></span>
+        <span class="username"><a href="javascript:;">@Post.Author.FullName</a> <small></small></span>
+    </div>
+    <div class="timeline-content">
+        <p>
+            @Post.Content
+        </p>
+    </div>
+    <div class="timeline-likes">
+        <div class="stats-right">
+            <a class="float-right" href="javascript:void(0);" @onclick="() => HandleCommentsExpansion()" @onclick:preventDefault>@Post.Comments.Count Comments</a>
+        </div>
+    </div>
+    <div class="timeline-footer">
+        <hr />
+        <a href="javascript:void(0);" class="m-r-15 text-inverse-lighter" @onclick="() => HandleCommentsExpansion()"><i class="fa fa-comments fa-fw fa-lg m-r-3" @onclick:preventDefault></i> Comment</a>
+    </div>
+    @if (AreCommentsExpanded)
+    {
+        <CreateNewPostComment ParentPostId="@Post.Id" />
+        @foreach (var comment in Post.Comments)
+        {
+            <PostComment ParentPostId="@Post.Id" Comment="comment"></PostComment>
+        }
+    }
+</div>
+<!-- end timeline-body -->

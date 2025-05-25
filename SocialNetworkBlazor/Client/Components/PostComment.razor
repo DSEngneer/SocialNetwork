@@ -1,0 +1,35 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<div class="row">
+    <div class="timeline-body-comment w-100">
+        <div class="timeline-header-comment">
+            <span class="userimage"><a href="/Profile/@Comment.Author.ContactId"><img src="/storage/images/@Comment.Author.ProfileImageTitle" alt=""></a></span>
+            <span class="username"><a href="/Profile/@Comment.Author.ContactId"><small>@Comment.Author.FullName</small></a></span>
+            <span class="pull-right text-muted"><small>@Comment.PostedAt.ToString("dd MMMM yyyy HH:mm")</small></span>
+            <div class="timeline-content">
+                @Comment.Content
+            </div>
+        </div>
+        <div class="timeline-likes">
+            <div class="stats-right">
+                @if (Comment.Replies.Count > 0)
+                {
+                    <a class="float-right" href="" @onclick="() => HandleRepliesExpansion()" @onclick:preventDefault>@Comment.Replies.Count Replies</a>
+                }
+            </div>
+            <a href="javascript:void(0);" class="m-r-15 text-inverse-lighter" @onclick="() => HandleReplyClicked()"><i class="fa fa-comments fa-fw fa-lg m-r-3" @onclick:preventDefault></i>Reply</a>
+        </div>
+        @if (AreRepliesShown)
+        {
+            @foreach (var reply in Comment.Replies)
+            {
+                <div class="pl-4">
+                    <PostComment Comment="@reply" ParentPostId="ParentPostId" />
+                </div>
+            }
+        }
+        @if (IsReplyClicked)
+        {
+            <CreateNewPostComment ParentPostId="ParentPostId" Comment="Comment" CommentSent="HandleCommentSent" />
+        }
+    </div>
+</div>

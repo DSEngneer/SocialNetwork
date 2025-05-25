@@ -1,0 +1,20 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@if (LoggedInUser != null)
+{
+    <div class="timeline-comment-box">
+        <div class="user"><img src="/storage/images/@LoggedInUser.ProfileImageTitle"></div>
+        <div class="input">
+            <EditForm Model="@ClientCommentCreated" OnValidSubmit="@HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="input-group">
+                    <InputText @bind-Value="@ClientCommentCreated.Content" Class="form-control rounded-corner" placeholder="Write a reply..." />
+                    <span class="input-group-btn p-l-10">
+                        <button class="btn btn-primary f-s-12 rounded-corner" type="submit">Comment</button>
+                    </span>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
