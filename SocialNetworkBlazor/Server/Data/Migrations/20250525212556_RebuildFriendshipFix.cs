@@ -23,6 +23,8 @@ namespace SocialNetworkBlazor.Server.Data.Migrations
                 oldType: "int");
         }
 
+        public int ContactId { get; set; }
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
